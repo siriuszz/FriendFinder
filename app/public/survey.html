@@ -154,16 +154,24 @@
         </div>
     </div>
 
+    <!--If I got the comparison working, this would be the html code used to display the modal-->
+    <!--<div class="modal-content" id="friend-modal">-->
+        <!--<div class="modal-body">-->
+            <!--<div id="friend-name"></div>-->
+            <!--<div id="friend-photo"></div>-->
+        <!--</div>-->
+            <!--<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>-->
+    <!--</div>-->
 
 </div>
 
-</body>
-</html>
 
 <script type="text/javascript">
 
     var diffArray = [];
     var difference;
+    var friendName;
+    var friendPhoto;
 
     $("#submit").on("click", function(event) {
         event.preventDefault();
@@ -212,8 +220,8 @@
             //Loop through the friends array
             for (i = 0; i < res.length - 1; i++) {
 
-                //Loop through the scores array in the friends array
-                //Get the absolute value of those scores and push them to new arrays
+                //Loop through the scores array within the friends array
+                //Get the absolute value of those scores and push them to a new array
                 for (j = 0; j < 10; j++) {
                     difference = newFriend.scores[j] - res[i].scores[j];
                     diffArray.push(Math.abs(difference));
@@ -236,7 +244,17 @@
         }
 
         console.log(diffArray);
+
+        //Modal info -- Used if I'd gotten comparison working.
+//        $("#friend-modal").modal(show);
+//        $("#friend-name").html(friendName);
+//        $("#friend-photo").html(friendPhoto)
 //==========================================================================================
+
+
     });
 
 </script>
+
+</body>
+</html>
