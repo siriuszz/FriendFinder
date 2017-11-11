@@ -162,7 +162,9 @@
 
 <script type="text/javascript">
 
-    var oldFriendValues = [];
+    var oldFriendValue;
+    var oldFriends = [];
+    var absScore = [];
 
     $("#submit").on("click", function(event) {
         event.preventDefault();
@@ -185,24 +187,22 @@
             ]
         };
 
-        console.log(newFriend.scores);
-
         //Pull data from friends array so we can compare
         $.get("/api/friends", function (res) {
 
             //Loop through the friends array
             for (i = 0; i < res.length - 1; i++) {
-
+                oldFriends = res[i];
 
                 //Loop through the scores array in the friends array
                 //Get the absolute value of those scores and push them to new arrays
                 for (j = 0; j < 10; j++) {
-                    oldFriendValues.push(Math.abs(res[j].scores[i]));
+                    absScore.push(oldFriends.scores[j]);
+                    console.log(absScore);
                 }
             }
         });
 
-        console.log("Old: " + oldFriendValues);
 
         //Post user input data
         $.post("/api/friends", newFriend,
