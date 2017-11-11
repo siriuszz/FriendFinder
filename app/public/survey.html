@@ -162,9 +162,8 @@
 
 <script type="text/javascript">
 
-    var oldFriendValue;
-    var oldFriends = [];
-    var absScore = [];
+    var diffArray = [];
+    var difference;
 
     $("#submit").on("click", function(event) {
         event.preventDefault();
@@ -187,21 +186,6 @@
             ]
         };
 
-        //Pull data from friends array so we can compare
-        $.get("/api/friends", function (res) {
-
-            //Loop through the friends array
-            for (i = 0; i < res.length - 1; i++) {
-                oldFriends = res[i];
-
-                //Loop through the scores array in the friends array
-                //Get the absolute value of those scores and push them to new arrays
-                for (j = 0; j < 10; j++) {
-                    absScore.push(oldFriends.scores[j]);
-                }
-            }
-        });
-
 
         //Post user input data
         $.post("/api/friends", newFriend,
@@ -220,6 +204,39 @@
                 $("#question9").val("");
                 $("#question10").val("");
             });
+
+// Comparison -- NOT WORKING ===========================================================
+        //Pull data from friends array so we can compare
+        $.get("/api/friends", function (res) {
+
+            //Loop through the friends array
+            for (i = 0; i < res.length - 1; i++) {
+
+                //Loop through the scores array in the friends array
+                //Get the absolute value of those scores and push them to new arrays
+                for (j = 0; j < 10; j++) {
+                    difference = newFriend.scores[j] - res[i].scores[j];
+                    diffArray.push(Math.abs(difference));
+                }
+
+                diffSums();
+
+                totalDiff();
+            }
+        });
+
+
+        //Total the differences
+        function diffSums (numA, numB) {
+            return numA + numB;
+        }
+
+        function totalDiff () {
+            diffArray.reduce(diffSums);
+        }
+
+        console.log(diffArray);
+//==========================================================================================
     });
 
 </script>
